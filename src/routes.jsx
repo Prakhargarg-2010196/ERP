@@ -1,7 +1,9 @@
-import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 
+import { AnimatePresence } from "framer-motion";
 import { AuthLayout } from "./layouts/auth-layout";
 import { ChakraProvider } from "@chakra-ui/react";
+import GlobalStyled from "./styles/GlobalStyle";
 import { HomeLayout } from "./layouts/home-layout";
 import Login from "./domain/Auth/login/login";
 import SignUp from "./domain/Auth/sign-up/sign-up";
@@ -14,45 +16,49 @@ const RouteComponent = () => {
   function handleThemeChange(currentTheme) {
     setTheme(currentTheme);
   }
+  const location = useLocation();
   return (
-    <Router>
+    <>
       <ChakraProvider>
         <ThemeContext.Provider value={theme}>
-          <Routes>
-            <Route
-              path="/logIn"
-              exact
-              element={
-                <AuthLayout navLink={"/signUp"} navText={"SignUp"}>
-                  <Login />
-                </AuthLayout>
-              }
-            />
-            <Route
-              path="/"
-              exact
-              element={
-                <HomeLayout
-                  onThemeChange={(theme) => {
-                    handleThemeChange(theme);
-                  }}
-                  navText={["teacher", "student"]}
-                ></HomeLayout>
-              }
-            />
-            <Route
-              path="/signUp"
-              exact
-              element={
-                <AuthLayout navLink={"/login"} navText={"Login"}>
-                  <SignUp />
-                </AuthLayout>
-              }
-            />
-          </Routes>
+          <GlobalStyled />
+          <AnimatePresence exitBeforeEnter initial={false}>
+            <Routes location={location} key={location.key}>
+              <Route
+                path="/logIn"
+                exact
+                element={
+                  <AuthLayout navLink={"/signUp"} navText={"SignUp"}>
+                    <Login />
+                  </AuthLayout>
+                }
+              />
+              <Route
+                path="/"
+                exact
+                element={
+                  <HomeLayout
+                    onThemeChange={(theme) => {
+                      handleThemeChange(theme);
+                    }}
+                    navText={["teacher", "student"]}
+                  ></HomeLayout>
+                }
+              />
+              <Route
+                path="/signUp"
+                exact
+                element={
+                  <AuthLayout navLink={"/login"} navText={"Login"}>
+                    <SignUp />
+                  </AuthLayout>
+                }
+              />
+            </Routes>
+          </AnimatePresence>
         </ThemeContext.Provider>
       </ChakraProvider>
-    </Router>
+    </>
   );
 };
 export default RouteComponent;

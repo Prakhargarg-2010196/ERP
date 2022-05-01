@@ -1,9 +1,9 @@
 import { NavLink } from "react-router-dom";
 import Navbar from "../components/Navbar/desktop-navigation/navbar";
 import ThemeContext from "../context/theme-context";
+import { motion } from "framer-motion";
 import styled from "styled-components";
 import { useContext } from "react";
-
 const Layout = styled.div`
   max-height: 130vh;
   min-height: 90vh;
@@ -19,21 +19,22 @@ const Wrapper = styled.div`
   justify-content: center;
 `;
 export const AuthLayout = (props) => {
-  const theme = useContext(ThemeContext);
   return (
-    <>
+    <motion.div
+   
+    initial={{x:"0"}}
+     exit={{x:"-100vw", transition: { duration: 0.3, ease:"easeInOut"}}}
+    >
       <Navbar>
         <li>
           <NavLink to={props.navLink}>{props.navText}</NavLink>
         </li>
       </Navbar>
       <Layout
-        style={{
-          "--backgroundColor": `${theme.background}`,
-        }}
+       
       >
         <Wrapper>{props.children}</Wrapper>
       </Layout>
-    </>
+    </motion.div>
   );
 };
