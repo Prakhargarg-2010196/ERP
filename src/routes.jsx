@@ -6,6 +6,7 @@ import { ChakraProvider } from "@chakra-ui/react";
 import GlobalStyled from "./styles/GlobalStyle";
 import { HomeLayout } from "./layouts/home-layout";
 import Login from "./domain/Auth/login/login";
+import OtpScreen from "./domain/Auth/sign-up/utils/otp/otpscreen";
 import SignUp from "./domain/Auth/sign-up/sign-up";
 import ThemeContext from "./context/theme-context";
 import { themes } from "./styles/Theme";
@@ -22,7 +23,7 @@ const RouteComponent = () => {
       <ChakraProvider>
         <ThemeContext.Provider value={theme}>
           <GlobalStyled />
-          <AnimatePresence exitBeforeEnter initial={false}>
+          <AnimatePresence exitBeforeEnter>
             <Routes location={location} key={location.key}>
               <Route
                 path="/logIn"
@@ -51,6 +52,15 @@ const RouteComponent = () => {
                 element={
                   <AuthLayout navLink={"/login"} navText={"Login"}>
                     <SignUp />
+                  </AuthLayout>
+                }
+              />
+              <Route
+                path="/otpscreen"
+                exact
+                element={
+                  <AuthLayout navLink={""} navText={""}>
+                    <OtpScreen />
                   </AuthLayout>
                 }
               />

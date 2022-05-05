@@ -1,16 +1,19 @@
 import { Button as Btn, Container, Form, Heading } from "../auth-common-css";
+import { NavLink, useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 
 import { Checkbox } from "@chakra-ui/react";
 import { Formik } from "formik";
 import InputField from "../../../components/Input/input-field";
-import { NavLink } from "react-router-dom";
 import ShowPass from "../utils/show-password";
+import axios from "axios";
 import signUpSchema from "../utils/auth-validation/schema/signup-schema";
 
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(true);
   const [showConfirmPassword, setShowConfirmPassword] = useState(true);
+  const baseURL =
+    "https://b155-2401-4900-b85-bd80-a84c-602e-4b72-21b2.ngrok.io/";
 
   const handleClickPassword = () => {
     setShowPassword(!showPassword);
@@ -18,27 +21,39 @@ const SignUp = () => {
   const handleClickConfirmPassword = () => {
     setShowConfirmPassword(!showConfirmPassword);
   };
+  const navigate = useNavigate();
   return (
     <Formik
       initialValues={{
+        username: "",
         email: "",
         password: "",
         confirmPassword: "",
+        role: ["student"],
       }}
       onSubmit={(values) => {
         console.log(values);
+        axios.post(
+          `${baseURL}api/auth/signup
+        `,
+          values
+        );
+        navigate("/otpscreen",{state: values});
       }}
       validationSchema={signUpSchema}
       validateOnBlur
     >
       {({ handleSubmit, handleChange, handleBlur, isSubmitting }) => (
-        <Form onSubmit={handleSubmit}>
+        <Form
+          onSubmit={(e) => {
+            e.preventDefault();
+
+            handleSubmit();
+          }}
+        >
           <Heading style={{ "--fontSize": "2vw" }}>
             Get Started To
-            <span style={{ color: "yellow", fontWeight: 600 }}>
-              {" "}
-              Edumarshal
-            </span>
+            <span style={{ color: "yellow", fontWeight: 600 }}>Edumarshal</span>
           </Heading>
           <Heading
             style={{ "--fontSize": "4vw", color: "#3EB0E1", fontWeight: "600" }}

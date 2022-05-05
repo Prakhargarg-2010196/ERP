@@ -6,10 +6,13 @@ import { Formik } from "formik";
 import InputField from "../../../components/Input/input-field";
 import { NavLink } from "react-router-dom";
 import ShowPass from "../utils/show-password";
+import axios from "axios";
 import logInSchema from "../utils/auth-validation/schema/login-schema";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(true);
+  const baseURL =
+    "https://b155-2401-4900-b85-bd80-a84c-602e-4b72-21b2.ngrok.io/";
 
   const handleClickPassword = () => {
     setShowPassword(!showPassword);
@@ -20,16 +23,27 @@ const Login = () => {
       initialValues={{
         email: "",
         password: "",
-        showPassword: true,
+        username: "",
       }}
       onSubmit={(values) => {
+        axios.post(
+          `${baseURL}api/auth/signin
+        `,
+          values
+        );
         console.log(values);
       }}
       validationSchema={logInSchema}
       validateOnBlur
     >
       {({ handleSubmit, handleChange, handleBlur, isSubmitting }) => (
-        <Form onSubmit={handleSubmit}>
+        <Form
+          onSubmit={(e) => {
+            e.preventDefault();
+
+            handleSubmit();
+          }}
+        >
           <Heading style={{ "--fontSize": "2vw" }}>
             Welcome Back To
             <span style={{ color: "yellow", fontWeight: 600 }}>

@@ -6,4 +6,3 @@ export const themes = {
     background: "#033C42",
   },
 };
-

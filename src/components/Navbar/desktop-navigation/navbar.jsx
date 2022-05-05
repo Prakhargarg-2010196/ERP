@@ -47,11 +47,7 @@ const Navbar = (props) => {
         }}
       >
         <NavLink to="/">
-          <img
-            src={logo}
-            style={{ borderRadius: "50%" }}
-            alt="logo"
-          />
+          <img src={logo} style={{ borderRadius: "50%" }} alt="logo" />
         </NavLink>
       </Container>
       <DesktopNavigation>{props.children}</DesktopNavigation>

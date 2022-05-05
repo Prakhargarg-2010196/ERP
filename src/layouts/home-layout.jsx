@@ -2,9 +2,11 @@ import { Button } from "@chakra-ui/react";
 import Home from "../domain/Home/home";
 import Navbar from "../components/Navbar/desktop-navigation/navbar";
 import ThemeContext from "../context/theme-context";
+import { motion } from "framer-motion";
 import style from "styled-components";
 import { themes } from "../styles/Theme";
 import { useContext } from "react";
+
 const Layout = style.div`
   max-height: 150vh;
   min-height: 90vh;
@@ -26,7 +28,11 @@ export const HomeLayout = (props) => {
   const theme = useContext(ThemeContext);
 
   return (
-    <>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 1.4, stiffness: 400 }}
+    >
       <Navbar>
         <li>
           <Button
@@ -60,6 +66,6 @@ export const HomeLayout = (props) => {
           {props.children}
         </Wrapper>
       </Layout>
-    </>
+    </motion.div>
   );
 };

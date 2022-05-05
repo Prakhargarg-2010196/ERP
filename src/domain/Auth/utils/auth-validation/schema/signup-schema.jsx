@@ -3,8 +3,7 @@ export default function signUpSchema() {
   return Yup.object().shape({
     username: Yup.string()
       .required("No username provided")
-      .max(7, "Username must be at most 7 characters long.")
-      .min(7, "Username must be at most 7 characters long.")
+      .max(9, "Username must be at most 9 characters long.")
       .matches(/^\d+$/, "Student Teacher number must be a number"),
 
     email: Yup.string().email().required("Required"),

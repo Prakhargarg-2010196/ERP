@@ -2,27 +2,22 @@ import { Button, Heading } from "@chakra-ui/react";
 
 import { NavLink } from "react-router-dom";
 import ThemeContext from "../../context/theme-context";
-import {motion} from "framer-motion";
+import { motion } from "framer-motion";
 import { useContext } from "react";
 
 export default function Home() {
   const theme = useContext(ThemeContext);
-  const ButtonVariants={
-    hover:{
-      transition:{
-        duration:1,
-        yoyo:10,
-        stiffness:100
-      }
-    }
-  }
+  const ButtonVariants = {
+    hover: {
+      scale: 1.1,
+      transition: {
+        duration: 1,
+      },
+    },
+  };
   return (
     <>
-    <motion.div
-        initial={{opacity:0}}
-        
-        animate={{opacity:1}}
-        transition={{duration:1.4}}
+      <div
         style={{
           display: "flex",
           flexDirection: "column",
@@ -30,16 +25,16 @@ export default function Home() {
           alignItems: "center",
         }}
       >
-        <motion.h1 initial={{scale:0}}  
-        animate={{scale:2.4}}
-        transition={{duration:1.3 ,stiffness:500}}
+        <motion.div
+          initial={{ scale: 0 }}
+          animate={{ scale: 2.5 }}
+          transition={{ duration: 1.3, stiffness: 500 }}
+          style={{ margin: "50px" }}
         >
-          AKGEC
-          </motion.h1>
-        <Heading>
-          The official Edu-Marshal Page for AKGEC
-        </Heading>
-      </motion.div>
+          <h1>AKGEC</h1>
+        </motion.div>
+        <Heading>The official Edu-Marshal Page for AKGEC</Heading>
+      </div>
       <div style={{ display: "flex", gap: "12px" }}>
         <Button
           style={{
@@ -54,17 +49,15 @@ export default function Home() {
           variants={ButtonVariants}
           whileHover="hover"
           style={{
-            backgroundColor:"white",
+            backgroundColor: "white",
             color: "black",
             width: "50%",
-            borderRadius:"5px"
+            borderRadius: "5px",
           }}
         >
           <NavLink to="/Login">Login</NavLink>
         </motion.button>
       </div>
     </>
-      
-    
   );
 }
